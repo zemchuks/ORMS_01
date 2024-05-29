@@ -16,19 +16,19 @@ const Dashboard = () => {
 
     const orders = [
         {
-            productName: 'JavaScript Tutorial',
+            productName: 'Iron Ore',
             productNumber: '85743',
             paymentStatus: 'Due',
             status: 'Pending'
         },
         {
-            productName: 'CSS Full Course',
+            productName: 'Aluminium',
             productNumber: '97245',
             paymentStatus: 'Refunded',
             status: 'Declined'
         },
         {
-            productName: 'Flex-Box Tutorial',
+            productName: 'Cement',
             productNumber: '36452',
             paymentStatus: 'Paid',
             status: 'Active'
@@ -175,8 +175,8 @@ const Dashboard = () => {
                 <div className="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
                     <div className="flex justify-between mb-6">
                         <div>
-                            <div className="text-2xl font-semibold mb-1">10</div>
-                            <div className="text-sm font-medium text-gray-400">Active orders</div>
+                            <div className="text-2xl font-semibold mb-1">15</div>
+                            <div className="text-sm font-medium text-gray-400">Transactions</div>
                         </div>
                         <Popover placement="leftTop" content={content}>
                             <EllipsisOutlined className='text-3xl text-gray-700 hover:text-gray-600' size={20} />
@@ -197,8 +197,8 @@ const Dashboard = () => {
                 <div className="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
                     <div className="flex justify-between mb-6">
                         <div>
-                            <div className="text-2xl font-semibold mb-1">10</div>
-                            <div className="text-sm font-medium text-gray-400">Active orders</div>
+                            <div className="text-2xl font-semibold mb-1">25</div>
+                            <div className="text-sm font-medium text-gray-400">Registered Users</div>
                         </div>
                         <Popover placement="leftTop" content={content}>
                             <EllipsisOutlined className='text-3xl text-gray-700 hover:text-gray-600' size={20} />
@@ -246,7 +246,7 @@ const Dashboard = () => {
                         <div>
                             <div className="text-2xl font-semibold mb-1"><span
                                 className="text-base font-normal text-gray-400 align-top"></span>$ 2,345</div>
-                            <div className="text-sm font-medium text-gray-400">Active orders</div>
+                            <div className="text-sm font-medium text-gray-400">Transactions Total</div>
                         </div>
                         <Popover placement="leftTop" content={content}>
                             <EllipsisOutlined className='text-3xl text-gray-700 hover:text-gray-600' size={20} />

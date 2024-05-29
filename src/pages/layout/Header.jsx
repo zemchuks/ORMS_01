@@ -8,9 +8,9 @@ const Header = () => {
                     <div className="flex items-center justify-between font-base text-lg">
                         {/* logo & Menu */}
                         <div className="flex items-center md:space-x-6">
-                            <div className="">
+                            <Link to='/' className="">
                                 <img src="/assets/images/lgo-red.png" className='h-12' alt="" />
-                            </div>
+                            </Link>
 
                             <div className="hidden text-lg font-normal md:flex md:space-x-8">
                                 <div className="group">
@@ -33,8 +33,8 @@ const Header = () => {
                         </div>
 
                         <div className="hidden font-poppins md:flex md:space-x-8">
-                            <Link to='/dashboard' className="shadow-sm rounded-md py-3 px-6 bg-[#C32822] text-white hover:bg-opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-150">Register</Link>
-                            <Link to='/' className="border-2 shadow-sm rounded-md py-3 px-6 bg-[#d3d3d3] text-dark hover:bg-opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-150">Sign In</Link>
+                            <Link to='/signup' className="shadow-sm rounded-md py-3 px-6 bg-[#C32822] text-white hover:bg-opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-150">Register</Link>
+                            <Link to='/signin' className="border-2 shadow-sm rounded-md py-3 px-6 bg-[#d3d3d3] text-dark hover:bg-opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-150">Sign In</Link>
                         </div>
                     </div>
                 </div>

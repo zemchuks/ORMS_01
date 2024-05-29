@@ -39,11 +39,11 @@ const Home = () => {
                         {/* Buttons */}
                         <div className="flex flex-col pt-[30px] justify-center w-full text-xl text-white space-y-5 md:space-x-8 md:space-y-0 md:flex-row">
                             <div>
-                                <button className="shadow-sm rounded-md py-3 px-6 bg-[#C32822] text-white hover:bg-opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-150">Register</button>
+                                <Link to='/signup' className="shadow-sm rounded-md py-3 px-6 bg-[#C32822] text-white hover:bg-opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-150">Register</Link>
                             </div>
 
                             <div>
-                                <button className="border-2 shadow-sm rounded-md py-3 px-6 bg-[#d3d3d3] text-gray-900 hover:bg-opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-150">Try Demo</button>
+                                <Link to='/signin' className="border-2 shadow-sm rounded-md py-3 px-6 bg-[#d3d3d3] text-gray-900 hover:bg-opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-150">Try Demo</Link>
                             </div>
                         </div>
                     </div>

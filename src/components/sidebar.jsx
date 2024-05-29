@@ -100,7 +100,7 @@ export default function Sidebar({ children }) {
           <Link to="#" className={activeLink === 'Settings' ? 'active' : ''}
             onClick={() => handleSetActiveLink('Settings')}><span className="material-icons-sharp">settings</span><h3>Settings</h3></Link>
 
-          <Link to="#" className={activeLink === 'Logout' ? 'active' : ''}
+          <Link to="/" className={activeLink === 'Logout' ? 'active' : ''}
             onClick={() => handleSetActiveLink('Logout')}><span className="material-icons-sharp">logout</span><h3>Logout</h3></Link>
         </div>
       </aside>
@@ -120,7 +120,7 @@ export default function Sidebar({ children }) {
           </div>
           <div className="profile">
             <div className="info">
-              <p>Hey, <b>Reza</b></p>
+              <p>Hey, <b>Super Admin</b></p>
               <p className="text-muted font-normal text-red-500">Admin</p>
             </div>
             <div className="profile-photo">
