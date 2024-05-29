@@ -1,6 +1,6 @@
 import Administration from "./pages/Administration";
 import Dashboard from "./pages/Dashboard";
-import Home from './pages/Home';
+import Home from "./pages/Home";
 import SignIn from "./pages/signIn/SignIn";
 import SignUp from "./pages/signUp/SignUp";
 
