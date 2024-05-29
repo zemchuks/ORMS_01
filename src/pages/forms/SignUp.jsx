@@ -1,9 +1,8 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 const SignUp = () => {
-  const navigate = useNavigate();
   return (
     <section class="bg-white">
       <div class="container flex items-center justify-center min-h-screen px-6 mx-auto">
