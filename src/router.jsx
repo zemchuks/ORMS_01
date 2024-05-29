@@ -6,6 +6,11 @@
 
 import Administration from "./pages/Administration";
 import Dashboard from "./pages/Dashboard";
+import SignIn from "./pages/signIn/SignIn";
+import SignUp from "./pages/signUp/SignUp";
+import Home from './pages/Home';
+
+// import Home from "./pages/layout/Home";
 
 // export const router  = createBrowserRouter([
 //     {path: '/', element: <App />},
@@ -15,9 +20,14 @@ import Dashboard from "./pages/Dashboard";
 
 
 export const AuthRoutes = [
-  {name: "/", element: Dashboard},
-  {name: "/administration", element: Administration},
+  // { name: "/", element: Home },
+  { name: "/dashboard", element: Dashboard },
+  { name: "/administration", element: Administration },
 ]
 
-export const AdminRoutes = []
+export const HomeRoutes = [
+  {name: '/', element: Home},
+  {name: '/signin', element: SignIn},
+  {name: '/signup', element: SignUp},
+]
 export const CorporateRoutes = []

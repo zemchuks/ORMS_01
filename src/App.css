@@ -12,7 +12,7 @@
   --color-dark-variant: #677483;
   --color-background: #f6f6f9;
 
-  --card-border-radius: 2rem;
+  /* --card-border-radius: 2rem; */
   --border-radius-1: 0.4rem;
   --border-radius-2: 1.2rem;
 
@@ -49,7 +49,7 @@ body {
   width: 100vw !important;
   height: 100vh !important;
   font-family: "Poppins", sans-serif !important;
-  font-size: 0.88rem !important;
+  font-size: 0.88rem;
   user-select: none !important;
   overflow-x: hidden !important;
   color: var(--color-dark);
@@ -67,8 +67,8 @@ img {
 }
 
 h1 {
-  font-weight: 800 !important;
-  font-size: 1.8rem !important;
+  font-weight: 800;
+  font-size: 1.8rem;
 }
 
 h2 {
@@ -76,10 +76,10 @@ h2 {
   font-size: 1.4rem !important;
 }
 
-h3 {
-  font-weight: 500 !important;
-  font-size: 0.87rem !important;
-}
+/* h3 {
+  font-weight: 500;
+  font-size: 0.87rem;
+} */
 
 small {
   font-size: 0.76rem;
@@ -116,13 +116,15 @@ b {
 .container {
   display: grid;
   width: 96%;
-  margin: 0 auto;
+  margin: 0 3px;
   gap: 1.8rem;
   grid-template-columns: 12rem auto 23rem;
 }
 
 aside {
+  position: fixed;
   height: 100vh;
+  width: 15vw;
 }
 
 aside .toggle {
@@ -163,7 +165,7 @@ aside .sidebar:hover {
   box-shadow: none;
 }
 
-aside .sidebar a {
+aside .sidebar > a {
   display: flex;
   align-items: center;
   color: var(--color-info-dark);
@@ -179,7 +181,7 @@ aside .sidebar a span {
   transition: all 0.3s ease;
 }
 
-aside .sidebar a:last-child {
+aside .sidebar > a:last-child {
   position: absolute;
   bottom: 2rem;
   width: 100%;
@@ -207,6 +209,24 @@ aside .sidebar a:hover {
 aside .sidebar a:hover span {
   margin-left: 0.6rem;
 }
+aside .sidebar .submenu a.active {
+  color: var(--color-primary);
+  background-color: var(--color-light);
+  margin-left: 0;
+}
+aside .sidebar .submenu a.active::before {
+  content: "";
+  width: 6px;
+  height: 18px;
+  background-color: var(--color-primary);
+}
+/* aside .sidebar .submenu a.active span {
+  color: var(--color-primary);
+  margin-left: calc(1rem - 3px);
+} */
+.main-content {
+  margin-left: 19rem;
+}
 aside .sidebar .message-count {
   background-color: var(--color-danger);
   padding: 2px 6px;
@@ -218,6 +238,7 @@ aside .sidebar .message-count {
 /* Dasshboard */
 main {
   margin-top: 1.4rem;
+  width: 78vw;
 }
 
 main .analyse {
@@ -229,7 +250,7 @@ main .analyse {
 main .analyse > div {
   background-color: var(--color-white);
   padding: var(--card-padding);
-  border-radius: var(--card-border-radius);
+  /* border-radius: var(--card-border-radius); */
   margin-top: 1rem;
   box-shadow: var(--box-shadow);
   cursor: pointer;
@@ -343,7 +364,7 @@ main .recent-orders h2 {
   margin-bottom: 0.8rem;
 }
 
-main .recent-orders table {
+/* main .recent-orders table {
   background-color: var(--color-white);
   width: 100%;
   padding: var(--card-padding);
@@ -351,13 +372,13 @@ main .recent-orders table {
   box-shadow: var(--box-shadow);
   border-radius: var(--card-border-radius);
   transition: all 0.3s ease;
-}
+} */
 
-main .recent-orders table:hover {
+/* main .recent-orders table:hover {
   box-shadow: none;
-}
+} */
 
-main table tbody td {
+/* main table tbody td {
   height: 2.8rem;
   border-bottom: 1px solid var(--color-light);
   color: var(--color-dark-variant);
@@ -365,16 +386,19 @@ main table tbody td {
 
 main table tbody tr:last-child td {
   border: none;
-}
+} */
 
-main .recent-orders a {
+/* main .recent-orders a {
   text-align: center;
   display: block;
   margin: 1rem auto;
   color: var(--color-primary);
-}
+} */
 
 .right-section {
+  position: fixed;
+  top: 0;
+  right: 0;
   margin-top: 1.4rem;
 }
 
@@ -427,7 +451,7 @@ main .recent-orders a {
   overflow: hidden;
 }
 
-.right-section .user-profile {
+/* .right-section .user-profile {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -529,7 +553,7 @@ main .recent-orders a {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-}
+} */
 
 @media screen and (max-width: 1200px) {
   .container {
@@ -603,7 +627,9 @@ main .recent-orders a {
     transform: translateX(-100%);
     transition: transform 0.4s ease;
   }
-
+  .main-content {
+    margin: auto;
+  }
   aside.show {
     transform: translateX(0);
   }

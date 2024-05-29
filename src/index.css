@@ -1,3 +1,8 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
+
+
+.main.active {
+    @apply md:w-full md:ml-0;
+}

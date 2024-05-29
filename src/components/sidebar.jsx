@@ -5,6 +5,17 @@ import { Link } from 'react-router-dom'
 export default function Sidebar({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [activeLink, setActiveLink] = useState('Dashboard')
+  const [isAdminSubmenuOpen, setIsAdminSubmenuOpen] = useState(false);
+  const [activeSubLink, setActiveSubLink] = useState('');
+
+
+  const handleSetActiveLink = (linkName) => {
+    setActiveLink(linkName);
+    if (linkName !== 'Administration') {
+      setIsAdminSubmenuOpen(false);
+    }
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -15,9 +26,14 @@ export default function Sidebar({ children }) {
     document.body.classList.toggle('dark-mode-variables');
   };
 
+  const toggleAdminSubmenu = () => {
+    setIsAdminSubmenuOpen(!isAdminSubmenuOpen);
+    handleSetActiveLink('Administration');
+  };
+
   return (
     <div className="container">
-      <aside className={isMenuOpen ? 'show' : ''}>
+      <aside className={isMenuOpen ? 'showSidebar' : ''}>
         <div className="toggle">
           <div className="logo">
             <img src='/assets/images/logo1.png' alt='Logo' />
@@ -28,17 +44,64 @@ export default function Sidebar({ children }) {
           </div>
         </div>
         <div className="sidebar">
-          <a href="/"><span className="material-icons-sharp">dashboard</span><h3>Dashboard</h3></a>
-          <a href="/administration"><span className="material-icons-sharp">admin_panel_settings</span><h3>Administration</h3></a>
-          <a href="#"><span className="material-icons-sharp">point_of_sale</span><h3>User</h3></a>
-          <a href="#"><span className="material-icons-sharp">receipt_long</span><h3>History</h3></a>
-          <a href="#" className='active'><span className="material-icons-sharp">query_stats</span><h3>Analytics</h3></a>
-          <a href="#"><span className="material-icons-sharp">mail_outline</span><h3>Tickets</h3><span className="message-count">27</span></a>
-          <a href="#"><span className="material-icons-sharp">inventory</span><h3>Sale List</h3></a>
-          <a href="#"><span className="material-icons-sharp">report</span><h3>Reports</h3></a>
-          <a href="#"><span className="material-icons-sharp">settings</span><h3>Settings</h3></a>
-          <a href="#"><span className="material-icons-sharp">add</span><h3>New Login</h3></a>
-          <a href="#"><span className="material-icons-sharp">logout</span><h3>Logout</h3></a>
+          <Link to="/" className={activeLink === 'Dashboard' ? 'active' : ''}
+            onClick={() => handleSetActiveLink('Dashboard')}><span className="material-icons-sharp">dashboard</span><h3>Dashboard</h3></Link>
+
+          <Link className={activeLink === 'Administration' ? 'active' : ''}
+            onClick={() => { handleSetActiveLink('Administration', toggleAdminSubmenu()) }}>
+            <span className="material-icons-sharp">admin_panel_settings</span>
+            <h3>Administration</h3>
+            <span className="material-icons-sharp">{isAdminSubmenuOpen ? 'expand_less' : 'expand_more'}</span>
+          </Link>
+          {isAdminSubmenuOpen && (
+            <div className="pl-8 flex flex-col gap-1 ml-10">
+              <Link to="/entities" className={`flex items-center gap-1 p-2 text-sm ${activeSubLink === 'Entities' ? 'active' : ''}`} onClick={() => setActiveSubLink('Entities')}>
+                <h3>Entities</h3>
+              </Link>
+              <Link to="/entities-role" className={`flex items-center gap-2 p-2 text-sm ${activeSubLink === 'Entities Role' ? 'active' : ''}`} onClick={() => setActiveSubLink('Entities Role')}>
+                <h3>Entities Role 2</h3>
+              </Link>
+              <Link to="/entities-role" className={`flex items-center gap-2 p-2 text-sm ${activeSubLink === 'Entities Role' ? 'active' : ''}`} onClick={() => setActiveSubLink('Entities Role')}>
+                <h3>Entities Role 3</h3>
+              </Link>
+              <Link to="/entities-role" className={`flex items-center gap-2 p-2 text-sm ${activeSubLink === 'Entities Role' ? 'active' : ''}`} onClick={() => setActiveSubLink('Entities Role')}>
+                <h3>Entities Role 4</h3>
+              </Link>
+              <Link to="/entities-role" className={`flex items-center gap-2 p-2 text-sm ${activeSubLink === 'Entities Role' ? 'active' : ''}`} onClick={() => setActiveSubLink('Entities Role')}>
+                <h3>Entities Role 5</h3>
+              </Link>
+
+            </div>
+          )}
+
+          {/* <div>
+            <div onClick={toggleAdminSubmenu} className={`flex items-center gap-4 p-4 cursor-pointer ${activeLink === 'Administration' ? 'active' : ''}`}>
+              <span className="material-icons-sharp">admin_panel_settings</span>
+              <h3 className="text-md">Administration</h3>
+              <span className="material-icons-sharp">{isAdminSubmenuOpen ? 'expand_less' : 'expand_more'}</span>
+            </div>
+           
+          </div> */}
+          <Link to="#" className={activeLink === 'User' ? 'active' : ''}
+            onClick={() => handleSetActiveLink('User')}><span className="material-icons-sharp">point_of_sale</span><h3>User</h3></Link>
+
+          <Link to="#" className={activeLink === 'Transactions' ? 'active' : ''}
+            onClick={() => handleSetActiveLink('Transactions')}><span className="material-icons-sharp">receipt_long</span><h3>Transactions</h3></Link>
+
+          <Link to="#" className={activeLink === 'Analytics' ? 'active' : ''}
+            onClick={() => handleSetActiveLink('Analytics')}><span className="material-icons-sharp">query_stats</span><h3>Analytics</h3></Link>
+
+          <Link to="#" className={activeLink === 'Tickets' ? 'active' : ''}
+            onClick={() => handleSetActiveLink('Tickets')}><span className="material-icons-sharp">mail_outline</span><h3>Tickets</h3><span className="message-count">27</span></Link>
+
+          <Link to="#" className={activeLink === 'Sale List' ? 'active' : ''}
+            onClick={() => handleSetActiveLink('Sale List')}><span className="material-icons-sharp">inventory</span><h3>Sale List</h3></Link>
+
+          <Link to="#" className={activeLink === 'Settings' ? 'active' : ''}
+            onClick={() => handleSetActiveLink('Settings')}><span className="material-icons-sharp">settings</span><h3>Settings</h3></Link>
+
+          <Link to="#" className={activeLink === 'Logout' ? 'active' : ''}
+            onClick={() => handleSetActiveLink('Logout')}><span className="material-icons-sharp">logout</span><h3>Logout</h3></Link>
         </div>
       </aside>
 
@@ -61,7 +124,7 @@ export default function Sidebar({ children }) {
               <p className="text-muted font-normal text-red-500">Admin</p>
             </div>
             <div className="profile-photo">
-              <img src='/assets/images/logo1.png' alt='Profile' />
+              {/* <img src='/assets/images/logo1.png' alt='Profile' /> */}
             </div>
           </div>
         </div>
