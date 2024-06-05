@@ -1,182 +1,208 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import Navbar from './Navbar';
 // import '../App.css'
 
 export default function Sidebar({ children }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [activeLink, setActiveLink] = useState('Dashboard')
-  const [isAdminSubmenuOpen, setIsAdminSubmenuOpen] = useState(false);
-  const [activeSubLink, setActiveSubLink] = useState('');
+  const [isSidebarClosed, setSidebarClosed] = useState(false);
+  const [theme, setTheme] = useState(false);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setSidebarClosed(true);
+      } else {
+        setSidebarClosed(false);
+      }
+    };
 
-  const handleSetActiveLink = (linkName) => {
-    setActiveLink(linkName);
-    if (linkName !== 'Administration') {
-      setIsAdminSubmenuOpen(false);
-    }
-  };
+    window.addEventListener('resize', handleResize);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    document.body.classList.toggle('dark-mode-variables');
-  };
-
-  const toggleAdminSubmenu = () => {
-    setIsAdminSubmenuOpen(!isAdminSubmenuOpen);
-    handleSetActiveLink('Administration');
-  };
+  useEffect(() => {
+    const sideLinks = document.querySelectorAll('.sidebar .side-menu li a:not(.logout)');
+    sideLinks.forEach(item => {
+      const li = item.parentElement;
+      item.addEventListener('click', () => {
+        sideLinks.forEach(i => {
+          i.parentElement.classList.remove('active');
+        });
+        li.classList.add('active');
+      });
+    });
+  }, []);
 
   return (
-    <div className="container">
-      <aside className={isMenuOpen ? 'showSidebar' : ''}>
-        <div className="toggle">
-          <div className="logo">
-            <img src='/assets/images/logo1.png' alt='Logo' />
-            <h2>Oramsys</h2>
-          </div>
-          <div className="close" id="close-btn" onClick={toggleMenu}>
-            <span className="material-icons-sharp">close</span>
-          </div>
-        </div>
-        <div className="sidebar">
-          <Link to="/" className={activeLink === 'Dashboard' ? 'active' : ''}
-            onClick={() => handleSetActiveLink('Dashboard')}><span className="material-icons-sharp">dashboard</span><h3>Dashboard</h3></Link>
-
-          <Link className={activeLink === 'Administration' ? 'active' : ''}
-            onClick={() => { handleSetActiveLink('Administration', toggleAdminSubmenu()) }}>
-            <span className="material-icons-sharp">admin_panel_settings</span>
-            <h3>Administration</h3>
-            <span className="material-icons-sharp">{isAdminSubmenuOpen ? 'expand_less' : 'expand_more'}</span>
-          </Link>
-          {isAdminSubmenuOpen && (
-            <div className="pl-8 flex flex-col gap-1 ml-10">
-              <Link to="/entities" className={`flex items-center gap-1 p-2 text-sm ${activeSubLink === 'Entities' ? 'active' : ''}`} onClick={() => setActiveSubLink('Entities')}>
-                <h3>Entities</h3>
-              </Link>
-              <Link to="/entities-role" className={`flex items-center gap-2 p-2 text-sm ${activeSubLink === 'Entities Role' ? 'active' : ''}`} onClick={() => setActiveSubLink('Entities Role')}>
-                <h3>Entities Role 2</h3>
-              </Link>
-              <Link to="/entities-role" className={`flex items-center gap-2 p-2 text-sm ${activeSubLink === 'Entities Role' ? 'active' : ''}`} onClick={() => setActiveSubLink('Entities Role')}>
-                <h3>Entities Role 3</h3>
-              </Link>
-              <Link to="/entities-role" className={`flex items-center gap-2 p-2 text-sm ${activeSubLink === 'Entities Role' ? 'active' : ''}`} onClick={() => setActiveSubLink('Entities Role')}>
-                <h3>Entities Role 4</h3>
-              </Link>
-              <Link to="/entities-role" className={`flex items-center gap-2 p-2 text-sm ${activeSubLink === 'Entities Role' ? 'active' : ''}`} onClick={() => setActiveSubLink('Entities Role')}>
-                <h3>Entities Role 5</h3>
-              </Link>
-
-            </div>
-          )}
-
-          {/* <div>
-            <div onClick={toggleAdminSubmenu} className={`flex items-center gap-4 p-4 cursor-pointer ${activeLink === 'Administration' ? 'active' : ''}`}>
-              <span className="material-icons-sharp">admin_panel_settings</span>
-              <h3 className="text-md">Administration</h3>
-              <span className="material-icons-sharp">{isAdminSubmenuOpen ? 'expand_less' : 'expand_more'}</span>
-            </div>
-           
-          </div> */}
-          <Link to="#" className={activeLink === 'User' ? 'active' : ''}
-            onClick={() => handleSetActiveLink('User')}><span className="material-icons-sharp">point_of_sale</span><h3>User</h3></Link>
-
-          <Link to="#" className={activeLink === 'Transactions' ? 'active' : ''}
-            onClick={() => handleSetActiveLink('Transactions')}><span className="material-icons-sharp">receipt_long</span><h3>Transactions</h3></Link>
-
-          <Link to="#" className={activeLink === 'Analytics' ? 'active' : ''}
-            onClick={() => handleSetActiveLink('Analytics')}><span className="material-icons-sharp">query_stats</span><h3>Analytics</h3></Link>
-
-          <Link to="#" className={activeLink === 'Tickets' ? 'active' : ''}
-            onClick={() => handleSetActiveLink('Tickets')}><span className="material-icons-sharp">mail_outline</span><h3>Tickets</h3><span className="message-count">27</span></Link>
-
-          <Link to="#" className={activeLink === 'Sale List' ? 'active' : ''}
-            onClick={() => handleSetActiveLink('Sale List')}><span className="material-icons-sharp">inventory</span><h3>Sale List</h3></Link>
-
-          <Link to="#" className={activeLink === 'Settings' ? 'active' : ''}
-            onClick={() => handleSetActiveLink('Settings')}><span className="material-icons-sharp">settings</span><h3>Settings</h3></Link>
-
-          <Link to="/" className={activeLink === 'Logout' ? 'active' : ''}
-            onClick={() => handleSetActiveLink('Logout')}><span className="material-icons-sharp">logout</span><h3>Logout</h3></Link>
-        </div>
-      </aside>
-
-      <div className="main-content">
-        {children}
+    <div className={`app ${theme ? 'dark' : ''}`}>
+      <div className={`sidebar ${isSidebarClosed ? 'close' : ''}`}>
+        <a href="#" className="logo">
+          <i className='bx bx-code-alt'></i>
+          <div className="logo-name"><span>Asmr</span>Prog</div>
+        </a>
+        <ul className="side-menu">
+          <li className="active"><a href="#"><i className='bx bxs-dashboard'></i>Dashboard</a></li>
+          <li><a href="#"><i className='bx bx-store-alt'></i>Shop</a></li>
+          <li><a href="#"><i className='bx bx-analyse'></i>Analytics</a></li>
+          <li><a href="#"><i className='bx bx-message-square-dots'></i>Tickets</a></li>
+          <li><a href="#"><i className='bx bx-group'></i>Users</a></li>
+          <li><a href="#"><i className='bx bx-cog'></i>Settings</a></li>
+        </ul>
+        <ul className="side-menu">
+          <li>
+            <Link to="/" className="logout">
+              <i className='bx bx-log-out-circle'></i>
+              Logout
+            </Link>
+          </li>
+        </ul>
       </div>
 
-      <div className="right-section">
-        <div className="nav">
-          <button id="menu-btn" onClick={toggleMenu}>
-            <span className="material-icons-sharp">menu</span>
-          </button>
-          <div className="dark-mode" onClick={toggleDarkMode}>
-            <span className={`${!isDarkMode ? 'active' : ''} material-icons-sharp`}>light_mode</span>
-            <span className={`${isDarkMode ? 'active' : ''} material-icons-sharp`}>dark_mode</span>
-          </div>
-          <div className="profile">
-            <div className="info">
-              <p>Hey, <b>Super Admin</b></p>
-              <p className="text-muted font-normal text-red-500">Admin</p>
-            </div>
-            <div className="profile-photo">
-              {/* <img src='/assets/images/logo1.png' alt='Profile' /> */}
-            </div>
-          </div>
-        </div>
+      <div className="content">
+        <Navbar
+          isSidebarClosed={isSidebarClosed}
+          setSidebarClosed={setSidebarClosed}
+          theme={theme}
+          setTheme={setTheme}
+        />
 
-        {/* <div className="user-profile">
-          <div className="logo">
-            <img src='/assets/images/logo1.png' alt='Logo' />
-            <h2>AsmrProg</h2>
-            <p>Fullstack Web Developer</p>
-          </div>
-        </div> */}
-
-        {/* <div className="reminders">
+        <main>
           <div className="header">
-            <h2>Reminders</h2>
-            <span className="material-icons-sharp">
-              notifications_none
-            </span>
+            <div className="left">
+              <h1>Dashboard</h1>
+              <ul className="breadcrumb">
+                <li><a href="#">
+                  Analytics
+                </a></li>
+                /
+                <li><a href="#" className="active">Shop</a></li>
+              </ul>
+            </div>
+            <a href="#" className="report">
+              <i className='bx bx-cloud-download'></i>
+              <span>Download CSV</span>
+            </a>
           </div>
 
-          <div className="notification">
-            <div className="icon"><span className="material-icons-sharp">volume_up</span></div>
-            <div className="content">
-              <div className="info">
-                <h3>Workshop</h3>
-                <small className="text_muted">08:00 AM - 12:00 PM</small>
+          <ul className="insights">
+            <li>
+              <i className='bx bx-calendar-check'></i>
+              <span className="info">
+                <h3>
+                  1,074
+                </h3>
+                <p>Paid Order</p>
+              </span>
+            </li>
+            <li><i className='bx bx-show-alt'></i>
+              <span className="info">
+                <h3>
+                  3,944
+                </h3>
+                <p>Site Visit</p>
+              </span>
+            </li>
+            <li><i className='bx bx-line-chart'></i>
+              <span className="info">
+                <h3>
+                  14,721
+                </h3>
+                <p>Searches</p>
+              </span>
+            </li>
+            <li><i className='bx bx-dollar-circle'></i>
+              <span className="info">
+                <h3>
+                  $6,742
+                </h3>
+                <p>Total Sales</p>
+              </span>
+            </li>
+          </ul>
+
+          <div className="bottom-data">
+            <div className="orders">
+              <div className="header">
+                <i className='bx bx-receipt'></i>
+                <h3>Recent Orders</h3>
+                <i className='bx bx-filter'></i>
+                <i className='bx bx-search'></i>
               </div>
-              <span className="material-icons-sharp">more_vert</span>
+              <table>
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Order Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <img src="/assets/images/logo1.png" alt="profile" />
+                      <p>John Doe</p>
+                    </td>
+                    <td>14-08-2023</td>
+                    <td><span className="status completed">Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src="/assets/images/logo1.png" alt="profile" />
+                      <p>John Doe</p>
+                    </td>
+                    <td>14-08-2023</td>
+                    <td><span className="status pending">Pending</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src="/assets/images/logo1.png" alt="profile" />
+                      <p>John Doe</p>
+                    </td>
+                    <td>14-08-2023</td>
+                    <td><span className="status process">Processing</span></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          </div>
 
-          <div className="notification deactive">
-            <div className="icon">
-              <span className="material-icons-sharp">edit</span>
-            </div>
-            <div className="content">
-              <div className="info">
-                <h3>Workshop</h3>
-                <small className="text_muted">08:00 AM - 12:00 PM</small>
+            <div className="reminders">
+              <div className="header">
+                <i className='bx bx-note'></i>
+                <h3>Remiders</h3>
+                <i className='bx bx-filter'></i>
+                <i className='bx bx-plus'></i>
               </div>
-              <span className="material-icons-sharp">more_vert</span>
+              <ul className="task-list">
+                <li className="completed">
+                  <div className="task-title">
+                    <i className='bx bx-check-circle'></i>
+                    <p>Start Our Meeting</p>
+                  </div>
+                  <i className='bx bx-dots-vertical-rounded'></i>
+                </li>
+                <li className="completed">
+                  <div className="task-title">
+                    <i className='bx bx-check-circle'></i>
+                    <p>Analyse Our Site</p>
+                  </div>
+                  <i className='bx bx-dots-vertical-rounded'></i>
+                </li>
+                <li className="not-completed">
+                  <div className="task-title">
+                    <i className='bx bx-x-circle'></i>
+                    <p>Play Footbal</p>
+                  </div>
+                  <i className='bx bx-dots-vertical-rounded'></i>
+                </li>
+              </ul>
             </div>
           </div>
-
-          <div className="notification add-reminder">
-            <div><span className="material-icons-sharp">add</span>
-              <h3>Add Reminder</h3>
-            </div>
-          </div>
-
-        </div> */}
+        </main>
       </div>
     </div>
+
   );
 }
